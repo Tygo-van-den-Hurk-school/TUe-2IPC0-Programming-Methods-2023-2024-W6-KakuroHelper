@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>CUSTOM-Checkstyle</actionName>
+        <displayName>Checkstyle</displayName>
+        <goals>
+            <goal>checkstyle:check</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-Javadoc</actionName>
+        <displayName>Javadoc</displayName>
+        <goals>
+            <goal>javadoc:javadoc</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-Test</actionName>
+        <displayName>Test</displayName>
+        <goals>
+            <goal>test</goal>
+        </goals>
+    </action>
+</actions>
