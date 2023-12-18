@@ -178,14 +178,16 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
 
+        final boolean pull = true;
+
         // prepare generator
         this.generator = new KakuroCombinationGenerator();
         this.generator.setMaxNumber(max);
         final CompositeGeneratorObserver<Set<Integer>> observers;
         observers = new CompositeGeneratorObserver<Set<Integer>>();
         this.generator.setObserver(observers);
-        if (jCheckBoxList.isSelected()) {
-            PushPullAdapter listerAdapter = new PushPullAdapter(new Lister(), true);
+        if (this.jCheckBoxList.isSelected()) {
+            final PushPullAdapter listerAdapter = new PushPullAdapter(new Lister(), pull);
             observers.add(listerAdapter);
         }
 
@@ -194,22 +196,53 @@ public class MainFrame extends javax.swing.JFrame {
             counter = new Counter();
             // N.B. This counter does not need the data on its push interface.
             // Therefore, the PushPullAdapter can suppress pulling of the data.
-            final PushPullAdapter counterAdapter = new PushPullAdapter(counter, false);
+            final PushPullAdapter counterAdapter = new PushPullAdapter(counter, pull);
             observers.add(counterAdapter);
         }
 //# BEGIN TODO: Register other observers
-// Replace this line
+
+        final Intersector intersector;
+        /* Preparing the intersector */ {
+            if (this.jCheckBoxIntersection.isSelected()) {
+                intersector = new Intersector(max, false);
+                final PushPullAdapter intersectorAdapter = new PushPullAdapter(intersector, pull);
+                observers.add(intersectorAdapter);
+            } else {
+                intersector = null;
+            }
+        }
+
+        final Intersector eliminator;
+        /* Preparing the eliminator */ {
+            if (this.jCheckBoxElimination.isSelected()) {
+                eliminator = new Intersector(max, true);
+                final PushPullAdapter intersectorAdapter = new PushPullAdapter(intersector, pull);
+                observers.add(intersectorAdapter);
+            } else {
+                eliminator = null;
+            }
+        }
+
 //# END TODO
 
         // invoke generator
-        generator.generate(sum, length);
+        this.generator.generate(sum, length);
 
         // show observer results
         if (counter != null) {
             jTextArea1.append("Number of combinations generated: " + counter.getCount() + "\n");
         }
+
 //# BEGIN TODO: Show results of other observers
-// Replace this line
+        
+        if (intersector != null) {
+            jTextArea1.append("Number of intersections: " + intersector.getIntersection() + "\n");
+        }
+
+        if (eliminator != null) {
+            jTextArea1.append("Number of eliminations: " + eliminator.getIntersection() + "\n");
+        }
+
 //# END TODO
     }//GEN-LAST:event_jButtonGenerateActionPerformed
 
