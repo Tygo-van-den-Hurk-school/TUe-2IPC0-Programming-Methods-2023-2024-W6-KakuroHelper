@@ -57,10 +57,15 @@ public class CompositeGeneratorObserver<A> implements GeneratorObserver<A> {
      * Distributes notification to all registered observers.
      */
     @Override
-    public void objectGenerated(Generator<A> generator) {
-//# BEGIN TODO: Implementation of objectGenerated
-// Replace this line
-//# END TODO
+    public void objectGenerated(final Generator<A> generator) {
+        
+        //# BEGIN TODO: Implementation of objectGenerated
+        
+        for (GeneratorObserver<A> observer : this.observers) {
+            observer.objectGenerated(generator);
+        }
+        
+        //# END TODO
     }
 
 }
