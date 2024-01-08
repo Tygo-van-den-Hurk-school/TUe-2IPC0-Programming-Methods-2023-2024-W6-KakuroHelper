@@ -76,7 +76,7 @@ public class KakuroCombinationGeneratorTest {
         this.checkGenerator(0, 1, 0);
     }
 
-//# BEGIN TODO: Further test cases
+    //# BEGIN TODO: Further test cases
 
     /**
      * Boundary case: s that just does not work.
@@ -109,34 +109,34 @@ public class KakuroCombinationGeneratorTest {
 
     @Test
     public void testGeneratorNormal2() {
-        this.checkGenerator(2+1, 2, 1);
+        this.checkGenerator(2 + 1, 2, 1);
     }
     
     @Test
     public void testGeneratorNormal3() {
-        this.checkGenerator(3+2+1, 3, 1);
+        this.checkGenerator(3 + 2 + 1, 3, 1);
     }
 
     /** normal case: should work. */
     @Test
     public void testGeneratorNormal4() {
-        this.checkGenerator(4+3+2+1, 4, 1);
+        this.checkGenerator(4 + 3 + 2 + 1, 4, 1);
     }
 
     @Test
     public void testGeneratorNormal5() {
-        this.checkGenerator(5+4+3+2+1, 5, 1);
+        this.checkGenerator(5 + 4 + 3 + 2 + 1, 5, 1);
     }
     
     @Test
     public void testGeneratorNormal6() {
-        this.checkGenerator(6+5+4+3+2+1, 6, 1);
+        this.checkGenerator(6 + 5 + 4 + 3 + 2 + 1, 6, 1);
     }
 
     /** normal case: should work. */
     @Test
     public void testGeneratorNormal7() {
-        this.checkGenerator(7+6+5+4+3+2+1, 7, 1);
+        this.checkGenerator(7 + 6 + 5 + 4 + 3 + 2 + 1, 7, 1);
     }
 
     /** normal case: should work. */
@@ -153,9 +153,7 @@ public class KakuroCombinationGeneratorTest {
         this.checkGenerator(100, 10, 18854);
     }
     
-
-//# END TODO
-
+    //# END TODO
     // Auxiliary definitions
 
     /**
@@ -222,7 +220,7 @@ public class KakuroCombinationGeneratorTest {
             assertAll(
 
                     () -> assertTrue(precedes(preceding, combination), (
-                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() + "."
                         + this.getClass().getSimpleName() 
                         + ".combinationGenerated(Set<Integer>) failed, "    
                         + "the lexicographic order was not respected."
@@ -231,7 +229,7 @@ public class KakuroCombinationGeneratorTest {
                         + "preceding was supposed to precede combination but it did not.")),
                         
                     () -> assertTrue(max(combination) <= instance.getMaxNumber(), (
-                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() + "."
                         + this.getClass().getSimpleName() 
                         + ".combinationGenerated(Set<Integer>) failed, "
                         + "the max of the combination (" + max(combination) + "), "
@@ -239,21 +237,21 @@ public class KakuroCombinationGeneratorTest {
                         + instance.getMaxNumber() + ").")),
 
                     () -> assertTrue(1 <= min(combination), (
-                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() + "."
                         + this.getClass().getSimpleName() 
                         + ".combinationGenerated(Set<Integer>) failed, "
                         + "the sum of the combination (" + sum(combination) + "), "
                         + "is not equal to the expected sum (" + s + ").")),
                     
                     () -> assertEquals(s, sum(combination), (
-                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() + "."
                         + this.getClass().getSimpleName() 
                         + ".combinationGenerated(Set<Integer>) failed, "
                         + "the sum of the combination (" + sum(combination) + "), "
                         + "is not equal to the expected sum (" + s + ").")),
 
                     () -> assertEquals(n, combination.size(), (
-                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() + "."
                         + this.getClass().getSimpleName() 
                         + ".combinationGenerated(Set<Integer>) failed, "
                         + "the number of the combinations (" + combination.size() + "), "
@@ -330,5 +328,4 @@ public class KakuroCombinationGeneratorTest {
         }
         return false;
     }
-
 }
