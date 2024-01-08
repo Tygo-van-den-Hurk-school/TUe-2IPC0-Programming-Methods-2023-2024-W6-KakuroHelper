@@ -109,10 +109,27 @@ public class KakuroCombinationGenerator implements Generator<Set<Integer>> {
      * @bound {@code n} (upper bound on number of recursive calls)
      */
     private void generate(final Set<Integer> c, final int s, final int n, final int k) {
-        count++;
-//# BEGIN TODO: Recursive implementation of generate(Set<Integer>, int, int, int)
-// Replace this line
-//# END TODO
+        this.count++;
+
+        //# BEGIN TODO: Recursive implementation of generate(Set<Integer>, int, int, int)
+
+        if (n == 0 && s == 0) {
+            this.object = c;
+            this.observer.objectGenerated(this);
+        }
+
+        if (n == 0 || s <= 0) {
+            return;
+        }
+
+        for (int index = k; index <= this.maxNumber && s - index >= 0; index++) {
+            Set<Integer> copy = new HashSet<>(c);
+            copy.add(index);
+            this.generate(copy, s - index, n - 1, index + 1);
+        }
+        
+        //# END TODO
+
     }
 
 }
