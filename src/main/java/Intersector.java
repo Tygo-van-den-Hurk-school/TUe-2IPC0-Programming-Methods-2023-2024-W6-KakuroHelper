@@ -48,10 +48,23 @@ public class Intersector implements GeneratorListener {
     }
 
     @Override
-    public void combinationGenerated(Set<Integer> combination) {
-//# BEGIN TODO: Implementation of combinationGenerated
-// Replace this line
-//# END TODO
+    public void combinationGenerated(final Set<Integer> combination) {
+
+        //# BEGIN TODO: Implementation of combinationGenerated
+        
+        final Set<Integer> elementsToRemove = new HashSet<>();
+
+        /* finding the elements and adding them to  */ {
+            for (int element : this.intersection) {
+                if (combination.contains(element) == this.complement) {
+                    elementsToRemove.add(element);
+                }
+            }
+        }
+
+        this.intersection.removeAll(elementsToRemove);
+
+        //# END TODO
     }
 
 }
