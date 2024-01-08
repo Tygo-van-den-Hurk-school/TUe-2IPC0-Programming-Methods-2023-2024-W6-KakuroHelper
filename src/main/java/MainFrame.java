@@ -199,6 +199,7 @@ public class MainFrame extends javax.swing.JFrame {
             final PushPullAdapter counterAdapter = new PushPullAdapter(counter, pull);
             observers.add(counterAdapter);
         }
+        
 //# BEGIN TODO: Register other observers
 
         final Intersector intersector;
