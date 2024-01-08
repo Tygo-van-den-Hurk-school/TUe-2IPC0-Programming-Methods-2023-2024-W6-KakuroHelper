@@ -205,7 +205,8 @@ public class MainFrame extends javax.swing.JFrame {
         final Intersector intersector;
         /* Preparing the intersector */ {
             if (this.jCheckBoxIntersection.isSelected()) {
-                intersector = new Intersector(max, false);
+                final boolean takeComplement = true;
+                intersector = new Intersector(max, takeComplement);
                 final PushPullAdapter intersectorAdapter = new PushPullAdapter(intersector, pull);
                 observers.add(intersectorAdapter);
             } else {
@@ -216,9 +217,10 @@ public class MainFrame extends javax.swing.JFrame {
         final Intersector eliminator;
         /* Preparing the eliminator */ {
             if (this.jCheckBoxElimination.isSelected()) {
-                eliminator = new Intersector(max, true);
-                final PushPullAdapter intersectorAdapter = new PushPullAdapter(intersector, pull);
-                observers.add(intersectorAdapter);
+                final boolean takeComplement = true;
+                eliminator = new Intersector(max, takeComplement);
+                final PushPullAdapter eliminatorAdapter = new PushPullAdapter(eliminator, pull);
+                observers.add(eliminatorAdapter);
             } else {
                 eliminator = null;
             }

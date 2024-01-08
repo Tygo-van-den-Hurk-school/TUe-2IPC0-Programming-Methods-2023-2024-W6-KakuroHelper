@@ -52,17 +52,12 @@ public class Intersector implements GeneratorListener {
 
         //# BEGIN TODO: Implementation of combinationGenerated
         
-        final Set<Integer> elementsToRemove = new HashSet<>();
-
-        /* finding the elements and adding them to  */ {
-            for (int element : this.intersection) {
-                if (combination.contains(element) == this.complement) {
-                    elementsToRemove.add(element);
-                }
-            }
+        if (this.complement) {
+            this.intersection.removeAll(combination);
+            return;
         }
 
-        this.intersection.removeAll(elementsToRemove);
+        this.intersection.retainAll(combination);
 
         //# END TODO
     }
