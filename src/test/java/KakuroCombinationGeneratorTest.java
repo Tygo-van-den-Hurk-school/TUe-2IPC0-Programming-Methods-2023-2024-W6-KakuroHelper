@@ -1,11 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Test cases for Kakuro combination generator.
@@ -75,11 +73,87 @@ public class KakuroCombinationGeneratorTest {
      */
     @Test
     public void testGeneratorMinimal1() {
-        checkGenerator(0, 1, 0);
+        this.checkGenerator(0, 1, 0);
     }
 
 //# BEGIN TODO: Further test cases
-// Replace this line
+
+    /**
+     * Boundary case: s that just does not work.
+     */
+    @Test
+    public void testGeneratorMinimal2() {
+        this.checkGenerator(1, 0, 0);
+    }
+
+    /** 
+     * Boundary case: s larger then max.
+     */
+    @Test
+    public void testGeneratorSumLargerThenMax() {
+        final int numberLargerThenMax = instance.getMaxNumber() + 1;
+        this.checkGenerator(numberLargerThenMax, 1, 0);
+    }
+
+    /** Boundary case: since no number can be repeated, the max sum is 45. */
+    @Test
+    public void testGeneratorSumToLarge() {
+        this.checkGenerator(420, 69, 0);
+    }
+    
+    /** normal case: should work. */
+    @Test
+    public void testGeneratorNormal1() {
+        this.checkGenerator(1, 1, 1);
+    }
+
+    @Test
+    public void testGeneratorNormal2() {
+        this.checkGenerator(2+1, 2, 1);
+    }
+    
+    @Test
+    public void testGeneratorNormal3() {
+        this.checkGenerator(3+2+1, 3, 1);
+    }
+
+    /** normal case: should work. */
+    @Test
+    public void testGeneratorNormal4() {
+        this.checkGenerator(4+3+2+1, 4, 1);
+    }
+
+    @Test
+    public void testGeneratorNormal5() {
+        this.checkGenerator(5+4+3+2+1, 5, 1);
+    }
+    
+    @Test
+    public void testGeneratorNormal6() {
+        this.checkGenerator(6+5+4+3+2+1, 6, 1);
+    }
+
+    /** normal case: should work. */
+    @Test
+    public void testGeneratorNormal7() {
+        this.checkGenerator(7+6+5+4+3+2+1, 7, 1);
+    }
+
+    /** normal case: should work. */
+    @Test
+    public void testGeneratorNewMax1() {
+        this.instance.setMaxNumber(10);
+        this.checkGenerator(55, 10, 1);
+    }
+
+    /** normal case: should work. */
+    @Test
+    public void testGeneratorNewMax2() {
+        this.instance.setMaxNumber(25);
+        this.checkGenerator(100, 10, 18854);
+    }
+    
+
 //# END TODO
 
     // Auxiliary definitions
@@ -144,15 +218,48 @@ public class KakuroCombinationGeneratorTest {
                 case 2 -> System.out.println(combination);
                 default -> { }
             }
+            
             assertAll(
-                    () -> assertTrue(precedes(preceding, combination), "Lexicographic"),
-                    () -> assertTrue(
-                            1 <= min(combination) && max(combination) <= instance.getMaxNumber(),
-                            "Range 1 .. " + instance.getMaxNumber()
-                    ),
-                    () -> assertEquals(s, sum(combination), "Sum"),
-                    () -> assertEquals(n, combination.size(), "Number")
+
+                    () -> assertTrue(precedes(preceding, combination), (
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        + this.getClass().getSimpleName() 
+                        + ".combinationGenerated(Set<Integer>) failed, "    
+                        + "the lexicographic order was not respected."
+                        + "preceding was: \"" + preceding + "\", "
+                        + "combination was: \"" + combination + "\"."
+                        + "preceding was supposed to precede combination but it did not.")),
+                        
+                    () -> assertTrue(max(combination) <= instance.getMaxNumber(), (
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        + this.getClass().getSimpleName() 
+                        + ".combinationGenerated(Set<Integer>) failed, "
+                        + "the max of the combination (" + max(combination) + "), "
+                        + "is not smaller or equal to the expected max ("
+                        + instance.getMaxNumber() + ").")),
+
+                    () -> assertTrue(1 <= min(combination), (
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        + this.getClass().getSimpleName() 
+                        + ".combinationGenerated(Set<Integer>) failed, "
+                        + "the sum of the combination (" + sum(combination) + "), "
+                        + "is not equal to the expected sum (" + s + ").")),
+                    
+                    () -> assertEquals(s, sum(combination), (
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        + this.getClass().getSimpleName() 
+                        + ".combinationGenerated(Set<Integer>) failed, "
+                        + "the sum of the combination (" + sum(combination) + "), "
+                        + "is not equal to the expected sum (" + s + ").")),
+
+                    () -> assertEquals(n, combination.size(), (
+                        KakuroCombinationGeneratorTest.this.getClass().getSimpleName() +"."
+                        + this.getClass().getSimpleName() 
+                        + ".combinationGenerated(Set<Integer>) failed, "
+                        + "the number of the combinations (" + combination.size() + "), "
+                        + "is not equal to the expected number of combinations (" + n + ")."))
             );
+
             this.preceding = new HashSet<>(combination); // NEEDS COPY!
         }
     }
