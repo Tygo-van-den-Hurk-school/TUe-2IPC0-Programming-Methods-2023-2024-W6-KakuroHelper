@@ -43,9 +43,17 @@ public class PushPullAdapter implements GeneratorObserver<Set<Integer>> {
      */
     @Override
     public void objectGenerated(final Generator<Set<Integer>> generator) {
-//# BEGIN TODO: Implementation of objectGenerated
-// Replace this line
-//# END TODO
+    
+        //# BEGIN TODO: Implementation of objectGenerated
+
+        if (this.pull) { // if pulling is needed:
+            this.listener.combinationGenerated(generator.getObject());
+        
+        } else { // if pushing is needed:
+            this.listener.combinationGenerated(null);
+        }
+
+        //# END TODO
     }
 
 }
